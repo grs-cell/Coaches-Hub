@@ -28,14 +28,18 @@
     --purple-light:#26215C;--purple-text:#CECBF6;
     --amber-light:#412402;--amber-text:#FAC775;
     --red-light:#501313;--red-text:#F7C1C1;--red-border:#791F1F;
-    --abstract-light:#4A0E35;--abstract-text:#F4B8E4;
-    --profdev-light:#02304A;--profdev-text:#A8D8F0;
   }
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg3);color:var(--text);min-height:100vh}
 
-/* ── LOGIN SCREEN ── */
-.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+/* LOADING SCREEN */
+.loading-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--text2)}
+
+/* LOGIN */
+.login-screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:2rem}
 .login-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:2.5rem;width:400px;max-width:100%}
 .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:1.75rem}
 .logo-badge{width:40px;height:40px;border-radius:10px;background:var(--teal);display:flex;align-items:center;justify-content:center}
@@ -54,12 +58,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .form-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px;display:block}
 .form-group input{width:100%;height:38px;padding:0 12px;font-size:13px;border:0.5px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:inherit;outline:none}
 .form-group input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(29,158,117,0.15)}
-.login-hint{font-size:11px;color:var(--text3);margin-top:4px}
 .login-error{font-size:12px;color:var(--red-text);background:var(--red-light);border:0.5px solid var(--red-border);border-radius:var(--radius);padding:8px 12px;margin-bottom:12px;display:none}
 .login-error.show{display:block}
 
-/* ── SHARED LAYOUT ── */
-.page{max-width:920px;margin:0 auto;padding:1.5rem}
+/* LAYOUT */
+.page{max-width:920px;margin:0 auto;padding:1.5rem;display:none}
 .hub-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:0.5px solid var(--border)}
 .hub-logo{display:flex;align-items:center;gap:10px}
 .hub-title{font-size:17px;font-weight:600;color:var(--text)}
@@ -68,8 +71,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .role-pill{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
 .pill-admin{background:var(--amber-light);color:var(--amber-text)}
 .pill-coach{background:var(--blue-light);color:var(--blue-text)}
+.sync-indicator{font-size:12px;color:var(--teal);display:flex;align-items:center;gap:5px;opacity:0;transition:opacity 0.3s}
+.sync-indicator.show{opacity:1}
 
-/* ── BUTTONS ── */
+/* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;font-size:13px;border:0.5px solid var(--border2);border-radius:var(--radius);background:transparent;color:var(--text);cursor:pointer;white-space:nowrap;transition:background 0.15s;font-family:inherit}
 .btn:hover{background:var(--bg2)}
 .btn:active{transform:scale(0.98)}
@@ -78,8 +83,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn.danger{color:var(--red-text);border-color:var(--red-border)}
 .btn.danger:hover{background:var(--red-light)}
 .btn.sm{height:30px;padding:0 10px;font-size:12px}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
 
-/* ── STATS ── */
+/* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
 @media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
 .stat-card{background:var(--bg);border-radius:var(--radius);padding:14px 16px;border:0.5px solid var(--border)}
@@ -87,13 +93,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .stat-value{font-size:24px;font-weight:600;color:var(--text)}
 .stat-sub{font-size:11px;color:var(--text3);margin-top:2px}
 
-/* ── CONTROLS ── */
+/* CONTROLS */
 .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
 .controls input[type=text]{flex:1;min-width:150px;height:36px;padding:0 12px;font-size:13px;border:0.5px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);outline:none}
 .controls input[type=text]:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(29,158,117,0.15)}
 .controls select{height:36px;padding:0 10px;font-size:13px;border:0.5px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);cursor:pointer;outline:none}
 
-/* ── OPPORTUNITY CARDS ── */
+/* CARDS */
 .opp-list{display:flex;flex-direction:column;gap:10px}
 .opp-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
 .opp-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:1rem 1.25rem;cursor:pointer;user-select:none}
@@ -101,23 +107,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .opp-title{font-size:15px;font-weight:500;color:var(--text)}
 .opp-title-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
 .opp-meta{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.opp-meta i{font-size:13px}
 .badge{font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500;white-space:nowrap}
 .badge-job{background:var(--blue-light);color:var(--blue-text)}
 .badge-fellowship{background:var(--purple-light);color:var(--purple-text)}
 .badge-scholarship{background:var(--teal-light);color:var(--teal-text)}
+.badge-abstract{background:#FDE8F5;color:#7A1159}
+.badge-profdev{background:#E8F4FD;color:#0A4A6E}
 .badge-open{background:var(--teal-light);color:var(--teal-text)}
 .badge-closed{background:var(--bg3);color:var(--text2)}
-.badge-abstract{background:#FDE8F5;color:#7A1159}.badge-profdev{background:#E8F4FD;color:#0A4A6E}
 .card-actions{display:flex;gap:6px;flex-shrink:0}
 .opp-body{display:none;border-top:0.5px solid var(--border);padding:1rem 1.25rem}
 .opp-body.open{display:block}
 .opp-desc{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:14px}
-.apply-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;background:var(--teal);color:#fff;border-radius:var(--radius);font-size:14px;font-weight:500;text-decoration:none;border:none;cursor:pointer;transition:background 0.15s;font-family:inherit}
+.apply-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;background:var(--teal);color:#fff;border-radius:var(--radius);font-size:14px;font-weight:500;text-decoration:none;transition:background 0.15s}
 .apply-btn:hover{background:var(--teal-dark)}
 .deadline-banner{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--amber-text);background:var(--amber-light);border-radius:var(--radius);padding:6px 12px;margin-bottom:14px}
 
-/* ── ADMIN TRACKING ── */
+/* TRACKING */
 .tracking-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .track-card{background:var(--bg2);border-radius:var(--radius);padding:10px 14px}
 .track-label{font-size:11px;color:var(--text2);margin-bottom:4px}
@@ -131,9 +137,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .chip-success{font-size:10px;color:var(--teal-text)}
 .add-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-top:10px;border-top:0.5px solid var(--border)}
 .add-row select{height:32px;padding:0 8px;font-size:12px;border:0.5px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);flex:1;min-width:120px}
-.section-divider{height:0.5px;background:var(--border);margin:14px 0}
 
-/* ── MODAL ── */
+/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:200;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto}
 .modal-overlay.open{display:flex}
 .modal{background:var(--bg);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:1.5rem;width:560px;max-width:100%;margin:auto}
@@ -147,30 +152,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fg textarea{resize:vertical;min-height:72px;line-height:1.5}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem;padding-top:1rem;border-top:0.5px solid var(--border)}
 
-/* ── MISC ── */
+/* MISC */
 .empty-state{text-align:center;padding:3rem;color:var(--text2);font-size:14px;background:var(--bg);border-radius:var(--radius-lg);border:0.5px dashed var(--border2)}
 .empty-state i{font-size:32px;display:block;margin-bottom:10px;color:var(--text3)}
-.save-indicator{font-size:12px;color:var(--teal);display:flex;align-items:center;gap:5px;opacity:0;transition:opacity 0.3s}
-.save-indicator.show{opacity:1}
+.coach-banner{background:var(--blue-light);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:1.25rem;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--blue-text)}
 .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--text);color:var(--bg);font-size:13px;padding:10px 18px;border-radius:var(--radius);z-index:300;opacity:0;transform:translateY(8px);transition:opacity 0.25s,transform 0.25s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
-.coach-banner{background:var(--blue-light);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:1.25rem;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--blue-text)}
-.coach-banner i{font-size:20px;flex-shrink:0}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════ LOGIN SCREEN ═══════════════ -->
+<!-- LOADING -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="spinner"></div>
+  <div class="loading-text">Loading opportunities…</div>
+</div>
+
+<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
     <div class="login-logo">
       <div class="logo-badge"><i class="ti ti-trophy"></i></div>
       <div>
         <div class="login-title">GRS Coach Opportunities Hub</div>
-        <div class="login-sub">Jobs · Fellowships · Scholarships</div>
+        <div class="login-sub">Jobs · Fellowships · Scholarships · Conferences · Professional Development</div>
       </div>
     </div>
-
     <p style="font-size:13px;color:var(--text2);margin-bottom:1rem">Select your role to continue:</p>
     <div class="role-grid">
       <div class="role-btn selected" id="roleCoachBtn" onclick="selectRole('coach')">
@@ -184,83 +191,71 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <span class="role-btn-sub">Manage & track</span>
       </div>
     </div>
-
     <div class="login-divider"></div>
-
     <div id="adminFields" style="display:none">
       <div class="form-group">
         <label class="form-label">Admin password</label>
         <input type="password" id="passwordInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-        
       </div>
       <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
     </div>
-
     <button class="btn primary" style="width:100%;justify-content:center;height:42px;font-size:14px" onclick="doLogin()">
       <i class="ti ti-arrow-right"></i> Continue
     </button>
-
-    <p style="font-size:11px;color:var(--text3);text-align:center;margin-top:12px">
-      Coaches can browse freely. Admin login is required to manage opportunities.
-    </p>
+    <p style="font-size:11px;color:var(--text3);text-align:center;margin-top:12px">Coaches can browse freely. Admin login required to manage opportunities.</p>
   </div>
 </div>
 
-<!-- ═══════════════ MAIN APP ═══════════════ -->
-<div class="page" id="appScreen" style="display:none">
-
+<!-- MAIN APP -->
+<div class="page" id="appScreen">
   <div class="hub-header">
     <div class="hub-logo">
       <div class="logo-badge"><i class="ti ti-trophy"></i></div>
       <div>
         <div class="hub-title">GRS Coach Opportunities Hub</div>
-        <div class="hub-sub">Jobs · Fellowships · Scholarships</div>
+        <div class="hub-sub">Jobs · Fellowships · Scholarships · Conferences · Professional Development</div>
       </div>
     </div>
     <div class="header-right">
-      <span class="save-indicator" id="saveIndicator"><i class="ti ti-check" style="font-size:13px"></i> Saved</span>
+      <span class="sync-indicator" id="syncIndicator"><i class="ti ti-cloud-check" style="font-size:13px"></i> Synced</span>
       <span class="role-pill" id="rolePill"></span>
-      <div id="adminHeaderBtns" style="display:none;display:flex;gap:8px;flex-wrap:wrap">
+      <div id="adminHeaderBtns" style="display:none;gap:8px;flex-wrap:wrap">
         <button class="btn" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</button>
-        <button class="btn" onclick="importCSV()"><i class="ti ti-upload"></i> Import CSV</button>
-        <input type="file" id="csvFileInput" accept=".csv" style="display:none" onchange="handleCSVImport(event)">
         <button class="btn primary" onclick="openModal()"><i class="ti ti-plus"></i> Add opportunity</button>
       </div>
       <button class="btn" onclick="logout()"><i class="ti ti-logout"></i> Switch role</button>
     </div>
   </div>
 
-  <!-- Coach welcome banner (coach only) -->
   <div class="coach-banner" id="coachBanner" style="display:none">
     <i class="ti ti-info-circle"></i>
-    <span>Welcome! Browse open opportunities below. Click any card to see details and the application link. All applications are submitted directly on the opportunity's website.</span>
+    <span>Welcome! Browse open opportunities below. Click any card to see details and apply. All applications are submitted directly on the opportunity's website.</span>
   </div>
 
-  <!-- Stats (admin only) -->
   <div class="stats-grid" id="statsGrid" style="display:none"></div>
 
   <div class="controls">
     <input type="text" id="searchInput" placeholder="Search opportunities…" oninput="renderList()">
     <select id="filterType" onchange="renderList()">
       <option value="">All types</option>
-      <option>Job</option><option>Fellowship</option><option>Scholarship</option><option>Abstract / Conference</option><option>Professional Development</option>
+      <option>Job</option><option>Fellowship</option><option>Scholarship</option>
+      <option>Abstract / Conference</option><option>Professional Development</option>
     </select>
-    <select id="filterCountry" onchange="renderList()" id="filterCountry">
+    <select id="filterCountry" onchange="renderList()">
       <option value="">All countries</option>
       <option>Kenya</option><option>Malawi</option><option>Ethiopia</option><option>Zambia</option>
       <option>Zimbabwe</option><option>Mozambique</option><option>South Africa</option><option>Nigeria</option><option>USA</option>
     </select>
     <select id="filterStatus" onchange="renderList()">
       <option value="">All statuses</option>
-      <option value="open">Open</option>
-      <option value="closed">Closed</option>
+      <option value="open">Open</option><option value="closed">Closed</option>
     </select>
   </div>
 
   <div class="opp-list" id="oppList"></div>
 </div>
 
-<!-- ═══════════════ MODAL (admin) ═══════════════ -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <div class="modal-title" id="modalTitle">Add opportunity</div>
@@ -276,33 +271,55 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
     <div class="modal-actions">
       <button class="btn" onclick="closeModal()">Cancel</button>
-      <button class="btn primary" onclick="saveOpportunity()">Save opportunity</button>
+      <button class="btn primary" id="saveBtn" onclick="saveOpportunity()">Save opportunity</button>
     </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script>
-const COUNTRIES=['Kenya','Malawi','Ethiopia','Zambia','Zimbabwe','Mozambique','South Africa','Nigeria','USA'];
-const STORAGE_KEY='grs_hub_v2';
-const ADMIN_PASSWORD='grsadmin2024';
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-let opportunities=[];
-let nextId=1;
-let editingId=null;
-let currentRole=null;
+const firebaseConfig = {
+  apiKey: "AIzaSyBnkvbr1cjgTq-xu_KBtVsbLb30oL5F9Pw",
+  authDomain: "grs-coaches-hub.firebaseapp.com",
+  projectId: "grs-coaches-hub",
+  storageBucket: "grs-coaches-hub.firebasestorage.app",
+  messagingSenderId: "47308742299",
+  appId: "1:47308742299:web:ff7debd851a05b88f7b03e"
+};
 
-/* ── AUTH ── */
-function selectRole(role){
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const COUNTRIES = ['Kenya','Malawi','Ethiopia','Zambia','Zimbabwe','Mozambique','South Africa','Nigeria','USA'];
+const ADMIN_PASSWORD = 'grsadmin2024';
+const COLLECTION = 'opportunities';
+
+let opportunities = [];
+let currentRole = null;
+let editingId = null;
+let unsubscribe = null;
+
+// ── HELPERS ──
+function totalApplied(o){return Object.values(o.applied||{}).reduce((s,v)=>s+v,0);}
+function totalSuccessful(o){return Object.values(o.successful||{}).reduce((s,v)=>s+v,0);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function flashSync(){const el=document.getElementById('syncIndicator');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500);}
+
+// ── AUTH ──
+window.selectRole = function(role){
   currentRole=role;
   document.getElementById('roleCoachBtn').classList.toggle('selected',role==='coach');
   document.getElementById('roleAdminBtn').classList.toggle('selected',role==='admin');
   document.getElementById('adminFields').style.display=role==='admin'?'block':'none';
   document.getElementById('loginError').classList.remove('show');
-}
+};
 
-function doLogin(){
+window.doLogin = function(){
   if(!currentRole) currentRole='coach';
   if(currentRole==='admin'){
     const pw=document.getElementById('passwordInput').value;
@@ -311,64 +328,47 @@ function doLogin(){
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('appScreen').style.display='block';
   setupRoleUI();
-  renderList();
-  if(currentRole==='admin') renderStats();
-}
+  startRealtimeSync();
+};
 
-function logout(){
+window.logout = function(){
   currentRole=null;
+  if(unsubscribe) unsubscribe();
   document.getElementById('loginScreen').style.display='flex';
   document.getElementById('appScreen').style.display='none';
   document.getElementById('passwordInput').value='';
   document.getElementById('loginError').classList.remove('show');
   selectRole('coach');
-}
+};
 
 function setupRoleUI(){
   const isAdmin=currentRole==='admin';
   document.getElementById('rolePill').textContent=isAdmin?'Admin':'Coach';
   document.getElementById('rolePill').className='role-pill '+(isAdmin?'pill-admin':'pill-coach');
-  document.getElementById('adminHeaderBtns').style.display=isAdmin?'flex':'none';
+  const adminBtns=document.getElementById('adminHeaderBtns');
+  adminBtns.style.display=isAdmin?'flex':'none';
   document.getElementById('coachBanner').style.display=isAdmin?'none':'flex';
   document.getElementById('statsGrid').style.display=isAdmin?'grid':'none';
-  // coach: only show open by default
-  if(!isAdmin){
-    document.getElementById('filterStatus').value='open';
-    document.getElementById('filterCountry').style.display='none';
-  } else {
-    document.getElementById('filterStatus').value='';
-    document.getElementById('filterCountry').style.display='';
-  }
+  document.getElementById('filterCountry').style.display=isAdmin?'':'none';
+  if(!isAdmin){document.getElementById('filterStatus').value='open';}
+  else{document.getElementById('filterStatus').value='';}
 }
 
-/* ── DATA ── */
-function loadData(){
-  try{
-    const raw=localStorage.getItem(STORAGE_KEY);
-    if(raw){const p=JSON.parse(raw);opportunities=p.opportunities||[];nextId=p.nextId||(opportunities.length?Math.max(...opportunities.map(o=>o.id))+1:1);}
-    else{opportunities=getSampleData();nextId=4;saveData();}
-  }catch(e){opportunities=getSampleData();nextId=4;}
+// ── REALTIME SYNC ──
+function startRealtimeSync(){
+  const q = query(collection(db, COLLECTION), orderBy('createdAt','desc'));
+  unsubscribe = onSnapshot(q, (snapshot) => {
+    opportunities = snapshot.docs.map(d => ({id: d.id, ...d.data()}));
+    renderList();
+    if(currentRole==='admin') renderStats();
+    flashSync();
+  }, (err) => {
+    console.error(err);
+    showToast('Connection error — check your internet');
+  });
 }
 
-function saveData(){
-  try{localStorage.setItem(STORAGE_KEY,JSON.stringify({opportunities,nextId}));flashSave();}
-  catch(e){showToast('Could not save to browser storage.');}
-}
-
-function flashSave(){const el=document.getElementById('saveIndicator');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
-
-function getSampleData(){
-  return[
-    {id:1,title:'Head Coach — Nairobi Girls Academy',type:'Job',org:'GRS Kenya',location:'Nairobi, Kenya',desc:'Lead the girls football programme at the Nairobi Academy, delivering weekly coaching sessions and supporting player development.',link:'https://grassrootsoccer.org',deadline:'2026-06-30',status:'open',applied:{'Kenya':3,'Malawi':1},successful:{'Kenya':1}},
-    {id:2,title:'Commonwealth Youth Worker Fellowship',type:'Fellowship',org:'Commonwealth Foundation',location:'London, UK',desc:'A 6-month fellowship for youth sport practitioners from Commonwealth nations, covering programme design, leadership, and advocacy.',link:'https://commonwealthfoundation.com',deadline:'2026-07-15',status:'open',applied:{'South Africa':2,'Nigeria':1,'Zimbabwe':1},successful:{'South Africa':1}},
-    {id:3,title:'Sport for Development Scholarship — UCT',type:'Scholarship',org:'University of Cape Town',location:'Cape Town, South Africa',desc:'Postgraduate scholarship for practitioners working in sport-for-development, covering tuition and a monthly stipend.',link:'https://uct.ac.za',deadline:'2026-08-01',status:'open',applied:{'Kenya':2,'Zambia':1,'Ethiopia':1},successful:{}}
-  ];
-}
-
-function totalApplied(o){return Object.values(o.applied||{}).reduce((s,v)=>s+v,0);}
-function totalSuccessful(o){return Object.values(o.successful||{}).reduce((s,v)=>s+v,0);}
-
-/* ── RENDER ── */
+// ── RENDER ──
 function renderStats(){
   const total=opportunities.length,open=opportunities.filter(o=>o.status==='open').length;
   const allA=opportunities.reduce((s,o)=>s+totalApplied(o),0);
@@ -376,10 +376,10 @@ function renderStats(){
   const rate=allA?Math.round(allS/allA*100):0;
   const ctries=new Set();opportunities.forEach(o=>Object.keys(o.applied||{}).forEach(c=>{if((o.applied[c]||0)>0)ctries.add(c);}));
   document.getElementById('statsGrid').innerHTML=`
-    <div class="stat-card"><div class="stat-label"><i class="ti ti-layout-cards"></i> Total opportunities</div><div class="stat-value">${total}</div><div class="stat-sub">${open} open · ${total-open} closed</div></div>
-    <div class="stat-card"><div class="stat-label"><i class="ti ti-users"></i> Total applicants</div><div class="stat-value">${allA}</div><div class="stat-sub">across all opportunities</div></div>
-    <div class="stat-card"><div class="stat-label"><i class="ti ti-trophy"></i> Successful</div><div class="stat-value">${allS}</div><div class="stat-sub">${rate}% success rate</div></div>
-    <div class="stat-card"><div class="stat-label"><i class="ti ti-world"></i> Active countries</div><div class="stat-value">${ctries.size}</div><div class="stat-sub">countries with applicants</div></div>`;
+    <div class="stat-card"><div class="stat-label"><i class="ti ti-layout-cards"></i>Total opportunities</div><div class="stat-value">${total}</div><div class="stat-sub">${open} open · ${total-open} closed</div></div>
+    <div class="stat-card"><div class="stat-label"><i class="ti ti-users"></i>Total applicants</div><div class="stat-value">${allA}</div><div class="stat-sub">across all opportunities</div></div>
+    <div class="stat-card"><div class="stat-label"><i class="ti ti-trophy"></i>Successful</div><div class="stat-value">${allS}</div><div class="stat-sub">${rate}% success rate</div></div>
+    <div class="stat-card"><div class="stat-label"><i class="ti ti-world"></i>Active countries</div><div class="stat-value">${ctries.size}</div><div class="stat-sub">countries with applicants</div></div>`;
 }
 
 function renderList(){
@@ -398,42 +398,31 @@ function renderList(){
   const el=document.getElementById('oppList');
   if(!list.length){el.innerHTML='<div class="empty-state"><i class="ti ti-search"></i>No opportunities match your filters.</div>';return;}
   el.innerHTML=list.map(o=>isAdmin?renderAdminCard(o):renderCoachCard(o)).join('');
-  if(isAdmin)renderStats();
 }
 
+const typeCls=t=>({'Job':'badge-job','Fellowship':'badge-fellowship','Scholarship':'badge-scholarship','Abstract / Conference':'badge-abstract','Professional Development':'badge-profdev'}[t]||'badge-job');
+
 function renderCoachCard(o){
-  const typeCls={Job:'badge-job',Fellowship:'badge-fellowship',Scholarship:'badge-scholarship','Abstract / Conference':'badge-abstract','Professional Development':'badge-profdev'}[o.type]||'badge-job';
   const dl=o.deadline?new Date(o.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):null;
   const today=new Date();today.setHours(0,0,0,0);
   const ddDate=o.deadline?new Date(o.deadline):null;
   const daysLeft=ddDate?Math.ceil((ddDate-today)/(1000*60*60*24)):null;
   const urgentBanner=daysLeft!==null&&daysLeft>=0&&daysLeft<=14
-    ?`<div class="deadline-banner"><i class="ti ti-clock"></i>${daysLeft===0?'Deadline is today!':`${daysLeft} day${daysLeft===1?'':'s'} left to apply`}</div>`:
-    (daysLeft!==null&&daysLeft<0?`<div class="deadline-banner" style="color:var(--red-text);background:var(--red-light)"><i class="ti ti-x"></i>Deadline passed</div>`:'');
-  return`
-  <div class="opp-card" id="card-${o.id}">
-    <div class="opp-card-head" onclick="toggleCard(${o.id})">
+    ?`<div class="deadline-banner"><i class="ti ti-clock"></i>${daysLeft===0?'Deadline is today!':`${daysLeft} day${daysLeft===1?'':'s'} left to apply`}</div>`
+    :(daysLeft!==null&&daysLeft<0?`<div class="deadline-banner" style="color:var(--red-text);background:var(--red-light)"><i class="ti ti-x"></i>Deadline passed</div>`:'');
+  return`<div class="opp-card" id="card-${o.id}">
+    <div class="opp-card-head" onclick="toggleCard('${o.id}')">
       <div style="flex:1;min-width:0">
-        <div class="opp-title-row">
-          <span class="opp-title">${o.title}</span>
-          <span class="badge ${typeCls}">${o.type}</span>
-          <span class="badge ${o.status==='open'?'badge-open':'badge-closed'}">${o.status}</span>
-        </div>
-        <div class="opp-meta">
-          <i class="ti ti-map-pin"></i><span>${o.location||'—'}</span>
-          <span>·</span><span>${o.org||'—'}</span>
-          ${dl?`<span>·</span><i class="ti ti-calendar"></i><span>Deadline: ${dl}</span>`:''}
-        </div>
+        <div class="opp-title-row"><span class="opp-title">${o.title}</span><span class="badge ${typeCls(o.type)}">${o.type}</span><span class="badge ${o.status==='open'?'badge-open':'badge-closed'}">${o.status}</span></div>
+        <div class="opp-meta"><i class="ti ti-map-pin"></i><span>${o.location||'—'}</span><span>·</span><span>${o.org||'—'}</span>${dl?`<span>·</span><i class="ti ti-calendar"></i><span>Deadline: ${dl}</span>`:''}</div>
       </div>
-      <div class="card-actions" onclick="event.stopPropagation()">
-        <button class="btn sm" id="chevBtn-${o.id}"><i class="ti ti-chevron-down"></i></button>
-      </div>
+      <div class="card-actions" onclick="event.stopPropagation()"><button class="btn sm" id="chevBtn-${o.id}"><i class="ti ti-chevron-down"></i></button></div>
     </div>
     <div class="opp-body" id="body-${o.id}">
       ${urgentBanner}
       ${o.desc?`<p class="opp-desc">${o.desc}</p>`:''}
       ${o.link&&o.status==='open'?`<a class="apply-btn" href="${o.link}" target="_blank"><i class="ti ti-external-link"></i> View & apply for this opportunity</a>`:''}
-      ${o.status==='closed'?`<p style="font-size:13px;color:var(--text2)"><i class="ti ti-lock" style="font-size:13px"></i> This opportunity is now closed.</p>`:''}
+      ${o.status==='closed'?`<p style="font-size:13px;color:var(--text2)"><i class="ti ti-lock"></i> This opportunity is now closed.</p>`:''}
     </div>
   </div>`;
 }
@@ -441,28 +430,17 @@ function renderCoachCard(o){
 function renderAdminCard(o){
   const applied=totalApplied(o),successful=totalSuccessful(o);
   const rate=applied?Math.round(successful/applied*100):0;
-  const typeCls={Job:'badge-job',Fellowship:'badge-fellowship',Scholarship:'badge-scholarship','Abstract / Conference':'badge-abstract','Professional Development':'badge-profdev'}[o.type]||'badge-job';
   const dl=o.deadline?new Date(o.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):null;
   const chips=COUNTRIES.map(c=>{const n=(o.applied||{})[c]||0;if(!n)return'';const s=(o.successful||{})[c]||0;return`<span class="chip has-data">${c}<span class="chip-count">${n}</span>${s?`<span class="chip-success">✓${s}</span>`:''}</span>`;}).filter(Boolean).join('');
-  return`
-  <div class="opp-card" id="card-${o.id}">
-    <div class="opp-card-head" onclick="toggleCard(${o.id})">
+  return`<div class="opp-card" id="card-${o.id}">
+    <div class="opp-card-head" onclick="toggleCard('${o.id}')">
       <div style="flex:1;min-width:0">
-        <div class="opp-title-row">
-          <span class="opp-title">${o.title}</span>
-          <span class="badge ${typeCls}">${o.type}</span>
-          <span class="badge ${o.status==='open'?'badge-open':'badge-closed'}">${o.status}</span>
-        </div>
-        <div class="opp-meta">
-          <i class="ti ti-map-pin"></i><span>${o.location||'—'}</span>
-          <span>·</span><span>${o.org||'—'}</span>
-          ${dl?`<span>·</span><i class="ti ti-calendar"></i><span>Due ${dl}</span>`:''}
-          <span>·</span><span style="color:var(--teal)">${applied} applied · ${successful} successful</span>
-        </div>
+        <div class="opp-title-row"><span class="opp-title">${o.title}</span><span class="badge ${typeCls(o.type)}">${o.type}</span><span class="badge ${o.status==='open'?'badge-open':'badge-closed'}">${o.status}</span></div>
+        <div class="opp-meta"><i class="ti ti-map-pin"></i><span>${o.location||'—'}</span><span>·</span><span>${o.org||'—'}</span>${dl?`<span>·</span><i class="ti ti-calendar"></i><span>Due ${dl}</span>`:''}<span>·</span><span style="color:var(--teal)">${applied} applied · ${successful} successful</span></div>
       </div>
       <div class="card-actions" onclick="event.stopPropagation()">
-        <button class="btn sm" onclick="editOpp(${o.id})" title="Edit"><i class="ti ti-edit"></i></button>
-        <button class="btn sm danger" onclick="deleteOpp(${o.id})" title="Delete"><i class="ti ti-trash"></i></button>
+        <button class="btn sm" onclick="editOpp('${o.id}')" title="Edit"><i class="ti ti-edit"></i></button>
+        <button class="btn sm danger" onclick="deleteOpp('${o.id}')" title="Delete"><i class="ti ti-trash"></i></button>
         <button class="btn sm" id="chevBtn-${o.id}"><i class="ti ti-chevron-down"></i></button>
       </div>
     </div>
@@ -478,44 +456,51 @@ function renderAdminCard(o){
       <div class="country-chips">${chips||'<span style="font-size:13px;color:var(--text3)">No applications recorded yet</span>'}</div>
       <div class="add-row">
         <select id="sel-c-${o.id}"><option value="">Country…</option>${COUNTRIES.map(c=>`<option>${c}</option>`).join('')}</select>
-        <button class="btn sm" onclick="addApplicant(${o.id})"><i class="ti ti-plus"></i> Add applicant</button>
+        <button class="btn sm" onclick="addApplicant('${o.id}')"><i class="ti ti-plus"></i> Add applicant</button>
         <select id="sel-s-${o.id}"><option value="">Country…</option>${COUNTRIES.map(c=>`<option>${c}</option>`).join('')}</select>
-        <button class="btn sm primary" onclick="addSuccessful(${o.id})"><i class="ti ti-check"></i> Mark successful</button>
+        <button class="btn sm primary" onclick="addSuccessful('${o.id}')"><i class="ti ti-check"></i> Mark successful</button>
       </div>
     </div>
   </div>`;
 }
 
-function toggleCard(id){
+window.toggleCard = function(id){
   const body=document.getElementById('body-'+id);
   const btn=document.getElementById('chevBtn-'+id);
   const open=body.classList.toggle('open');
   btn.innerHTML=open?'<i class="ti ti-chevron-up"></i>':'<i class="ti ti-chevron-down"></i>';
-}
+};
 
-function addApplicant(id){
+// ── APPLICANT TRACKING ──
+window.addApplicant = async function(id){
   const sel=document.getElementById('sel-c-'+id);const c=sel.value;if(!c)return;
-  const o=opportunities.find(x=>x.id===id);if(!o.applied)o.applied={};
-  o.applied[c]=(o.applied[c]||0)+1;sel.value='';
-  saveData();renderList();reopenCard(id);showToast(`Applicant from ${c} added`);
-}
+  const o=opportunities.find(x=>x.id===id);
+  const applied={...(o.applied||{})};applied[c]=(applied[c]||0)+1;
+  try{
+    await updateDoc(doc(db,COLLECTION,id),{applied});
+    sel.value='';reopenCard(id);showToast(`Applicant from ${c} added`);
+  }catch(e){showToast('Error saving — check connection');}
+};
 
-function addSuccessful(id){
+window.addSuccessful = async function(id){
   const sel=document.getElementById('sel-s-'+id);const c=sel.value;if(!c)return;
   const o=opportunities.find(x=>x.id===id);
-  if(!o.successful)o.successful={};if(!o.applied)o.applied={};
-  o.successful[c]=(o.successful[c]||0)+1;
-  if(!(o.applied[c]||0))o.applied[c]=1;
-  sel.value='';saveData();renderList();reopenCard(id);showToast(`Coach from ${c} marked successful`);
-}
+  const applied={...(o.applied||{})};const successful={...(o.successful||{})};
+  successful[c]=(successful[c]||0)+1;
+  if(!(applied[c]||0))applied[c]=1;
+  try{
+    await updateDoc(doc(db,COLLECTION,id),{applied,successful});
+    sel.value='';reopenCard(id);showToast(`Coach from ${c} marked successful`);
+  }catch(e){showToast('Error saving — check connection');}
+};
 
 function reopenCard(id){
   const body=document.getElementById('body-'+id);const btn=document.getElementById('chevBtn-'+id);
   if(body){body.classList.add('open');btn.innerHTML='<i class="ti ti-chevron-up"></i>';}
 }
 
-/* ── MODAL ── */
-function openModal(id){
+// ── MODAL ──
+window.openModal = function(id){
   editingId=id||null;const o=id?opportunities.find(x=>x.id===id):null;
   document.getElementById('modalTitle').textContent=o?'Edit opportunity':'Add opportunity';
   document.getElementById('f-title').value=o?o.title:'';
@@ -528,80 +513,70 @@ function openModal(id){
   document.getElementById('f-status').value=o?o.status:'open';
   document.getElementById('modalOverlay').classList.add('open');
   setTimeout(()=>document.getElementById('f-title').focus(),50);
-}
+};
 
-function closeModal(){document.getElementById('modalOverlay').classList.remove('open');editingId=null;}
+window.closeModal = function(){document.getElementById('modalOverlay').classList.remove('open');editingId=null;};
 
-function saveOpportunity(){
+window.saveOpportunity = async function(){
   const title=document.getElementById('f-title').value.trim();if(!title){document.getElementById('f-title').focus();return;}
-  if(editingId){
-    const o=opportunities.find(x=>x.id===editingId);
-    Object.assign(o,{title,type:document.getElementById('f-type').value,location:document.getElementById('f-location').value,org:document.getElementById('f-org').value,deadline:document.getElementById('f-deadline').value,link:document.getElementById('f-link').value,desc:document.getElementById('f-desc').value,status:document.getElementById('f-status').value});
-  }else{
-    opportunities.unshift({id:nextId++,title,type:document.getElementById('f-type').value,location:document.getElementById('f-location').value,org:document.getElementById('f-org').value,deadline:document.getElementById('f-deadline').value,link:document.getElementById('f-link').value,desc:document.getElementById('f-desc').value,status:document.getElementById('f-status').value,applied:{},successful:{}});
-  }
-  closeModal();saveData();renderList();showToast(editingId?'Opportunity updated':'Opportunity added');
-}
+  const saveBtn=document.getElementById('saveBtn');saveBtn.disabled=true;saveBtn.textContent='Saving…';
+  const data={
+    title,type:document.getElementById('f-type').value,
+    location:document.getElementById('f-location').value,
+    org:document.getElementById('f-org').value,
+    deadline:document.getElementById('f-deadline').value,
+    link:document.getElementById('f-link').value,
+    desc:document.getElementById('f-desc').value,
+    status:document.getElementById('f-status').value,
+  };
+  try{
+    if(editingId){
+      await updateDoc(doc(db,COLLECTION,editingId),data);
+      showToast('Opportunity updated');
+    }else{
+      data.applied={};data.successful={};data.createdAt=serverTimestamp();
+      await addDoc(collection(db,COLLECTION),data);
+      showToast('Opportunity added');
+    }
+    closeModal();
+  }catch(e){showToast('Error saving — check connection');}
+  saveBtn.disabled=false;saveBtn.textContent='Save opportunity';
+};
 
-function editOpp(id){openModal(id);}
+window.editOpp = function(id){openModal(id);};
 
-function deleteOpp(id){
+window.deleteOpp = async function(id){
   const o=opportunities.find(x=>x.id===id);
   if(!confirm(`Delete "${o.title}"? This cannot be undone.`))return;
-  opportunities=opportunities.filter(x=>x.id!==id);saveData();renderList();showToast('Opportunity deleted');
-}
+  try{await deleteDoc(doc(db,COLLECTION,id));showToast('Opportunity deleted');}
+  catch(e){showToast('Error deleting — check connection');}
+};
 
-/* ── CSV ── */
-function exportCSV(){
-  const rows=[['ID','Title','Type','Status','Organisation','Location','Deadline','Link','Description',...COUNTRIES.map(c=>c+' Applied'),...COUNTRIES.map(c=>c+' Successful'),'Total Applied','Total Successful','Success Rate %']];
+// ── CSV EXPORT ──
+window.exportCSV = function(){
+  const rows=[['Title','Type','Status','Organisation','Location','Deadline','Link','Description',...COUNTRIES.map(c=>c+' Applied'),...COUNTRIES.map(c=>c+' Successful'),'Total Applied','Total Successful','Success Rate %']];
   opportunities.forEach(o=>{
     const app=COUNTRIES.map(c=>(o.applied||{})[c]||0);
     const suc=COUNTRIES.map(c=>(o.successful||{})[c]||0);
     const ta=app.reduce((s,v)=>s+v,0),ts=suc.reduce((s,v)=>s+v,0);
     const rate=ta?Math.round(ts/ta*100):0;
-    rows.push([o.id,o.title,o.type,o.status,o.org||'',o.location||'',o.deadline||'',o.link||'',(o.desc||'').replace(/"/g,'""'),...app,...suc,ta,ts,rate+'%']);
+    rows.push([o.title,o.type,o.status,o.org||'',o.location||'',o.deadline||'',o.link||'',(o.desc||'').replace(/"/g,'""'),...app,...suc,ta,ts,rate+'%']);
   });
   const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
-  a.download='grs_coach_opportunities_'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+  a.download='grs_opportunities_'+new Date().toISOString().slice(0,10)+'.csv';a.click();
   showToast('CSV exported');
-}
+};
 
-function importCSV(){document.getElementById('csvFileInput').click();}
-
-function handleCSVImport(e){
-  const file=e.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=function(ev){
-    try{
-      const lines=ev.target.result.replace(/^\uFEFF/,'').split(/\r?\n/).filter(l=>l.trim());
-      const parse=line=>{const r=[];let f='',inQ=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'){if(inQ&&line[i+1]==='"'){f+='"';i++;}else inQ=!inQ;}else if(c===','&&!inQ){r.push(f.replace(/^"|"$/g,''));f='';}else f+=c;}r.push(f.replace(/^"|"$/g,''));return r;};
-      const imported=[];
-      for(let i=1;i<lines.length;i++){
-        const cols=parse(lines[i]);if(cols.length<9)continue;
-        const applied={},successful={};
-        COUNTRIES.forEach((c,j)=>{const v=parseInt(cols[9+j])||0;if(v)applied[c]=v;});
-        COUNTRIES.forEach((c,j)=>{const v=parseInt(cols[9+COUNTRIES.length+j])||0;if(v)successful[c]=v;});
-        imported.push({id:nextId++,title:cols[1]||'Untitled',type:cols[2]||'Job',status:cols[3]||'open',org:cols[4],location:cols[5],deadline:cols[6],link:cols[7],desc:cols[8],applied,successful});
-      }
-      if(!imported.length){showToast('No valid rows found');return;}
-      if(confirm(`Import ${imported.length} opportunities? This adds to existing data.`)){opportunities=[...opportunities,...imported];saveData();renderList();showToast(`${imported.length} imported`);}
-    }catch(err){showToast('Could not parse CSV');}
-    e.target.value='';
-  };
-  reader.readAsText(file);
-}
-
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
-
+// ── KEYBOARD & MODAL CLOSE ──
 document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
-loadData();
+// ── INIT ──
 selectRole('coach');
-// Always start at login screen - never auto-login
+document.getElementById('loadingScreen').style.display='none';
 document.getElementById('loginScreen').style.display='flex';
-document.getElementById('appScreen').style.display='none';
+
 </script>
 </body>
 </html>
